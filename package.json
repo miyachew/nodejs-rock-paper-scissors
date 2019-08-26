@@ -1,0 +1,22 @@
+{
+  "name": "rock_paper_scissors",
+  "version": "1.0.0",
+  "description": "Simple console based rock paper scissors game",
+  "main": "src/index.js",
+  "scripts": {
+    "start-game": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "play": "bin/play"
+  },
+  "keywords": [
+    "game",
+    "cli"
+  ],
+  "author": "miya chew",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^7.0.0"
+  }
+}
