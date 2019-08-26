@@ -65,7 +65,11 @@ async function compete(gameOption){
     } else {
       console.log(`${player1Label} win! ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
     }
+  }else{
+    console.log("Something went wrong. Please try again.");
+    process.exit();
   }
+  newGame();
 }
 
 async function randomMove(){

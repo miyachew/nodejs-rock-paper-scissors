@@ -4,11 +4,8 @@
   "description": "Simple console based rock paper scissors game",
   "main": "src/index.js",
   "scripts": {
-    "start-game": "node src/index.js",
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "bin": {
-    "play": "bin/play"
   },
   "keywords": [
     "game",
