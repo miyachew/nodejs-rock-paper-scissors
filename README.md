@@ -13,6 +13,10 @@ npm install
 2. Run this to start the game:
 ```
 npm run start
+
+3. To run the test case:
+```
+npm run test
 ```
 
 # Game explaination
