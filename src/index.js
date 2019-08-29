@@ -1,4 +1,4 @@
-const rockPaperScissor = require("./rockPaperScissor.js")
+const RockPaperScissor = require("./RockPaperScissor.js")
 
-const game = new rockPaperScissor()
+const game = new RockPaperScissor()
 game.newGame();

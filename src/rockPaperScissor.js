@@ -1,6 +1,6 @@
 inquirer = require("inquirer")
 
-module.exports = class rockPaperScissor{
+module.exports = class RockPaperScissor{
     constructor(){
         this.prompt = inquirer.createPromptModule();
         this.moves = ["rock", "paper","scissors"];
@@ -35,12 +35,13 @@ module.exports = class rockPaperScissor{
     async compete(gameOption){
         let player1Label = '';
         let player1Move = '';
-        let computerMove = await this.randomMove();
+        let result = '';
+        let computerMove = this.randomMove();
         if (gameOption === "player_vs_computer"){
             player1Move = await this.getUserMove();
             player1Label ='You';
         } else if (gameOption === "computer_vs_computer") {
-            player1Move = await this.randomMove();
+            player1Move = this.randomMove();
             player1Label = 'Computer 1';
         } 
         if(player1Move==='') {
@@ -48,37 +49,50 @@ module.exports = class rockPaperScissor{
             process.exit();
         }
         
-        if(player1Move === computerMove){
-            console.log(`It's a tie! ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
-        }else if (player1Move=== 'rock'){
-            if (computerMove ==='paper'){
-            console.log(`${player1Label} lose. ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
-            }else{
-            console.log(`${player1Label} win! ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
-            }
-        }else if (player1Move === 'paper') {
-            if (computerMove === 'scissors') {
-            console.log(`${player1Label} lose. ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
-            } else {
-            console.log(`${player1Label} win! ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
-            }
-        } else if (player1Move === 'scissors') {
-            if (computerMove === 'rock') {
-            console.log(`${player1Label} lose. ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
-            } else {
-            console.log(`${player1Label} win! ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
-            }
-        }else{
-            console.log("Something went wrong. Please try again.");
-            process.exit();
-        }
+        let winner = await this.getWinner(player1Move, computerMove, player1Label)
+
+        this.printResult(winner, player1Label, player1Move,computerMove);
         this.newGame();
     }
 
-    async randomMove(){
-        return new Promise((resolve, reject)=>{
-            resolve(this.moves[Math.floor(Math.random() * this.moves.length)]);
+    getWinner(player1Move, computerMove, player1Label){
+        let winner = "";
+        if (player1Move === computerMove) {
+            winner = "no one";
+        } else if (player1Move === 'rock') {
+            if (computerMove === 'paper') {
+                winner = "computer"
+            } else {
+                winner = `${player1Label}`;
+            }
+        } else if (player1Move === 'paper') {
+            if (computerMove === 'scissors') {
+                winner = "computer"
+            } else {
+                winner = `${player1Label}`;
+            }
+        } else if (player1Move === 'scissors') {
+            if (computerMove === 'rock') {
+                winner = "computer"
+            } else {
+                winner = `${player1Label}`;
+            }
+        } else {
+            console.log("Something went wrong. Please try again.");
+            process.exit();
+        }
+
+        return new Promise((resolve, reject) => {
+            resolve(winner);
         }); 
+    }
+
+    printResult(winner, player1Label, player1Move,computerMove){
+        console.log(`Winner: ${winner}. ${player1Label}(${player1Move}) vs Computer(${computerMove})`);
+    }
+
+    randomMove(){
+        return this.moves[Math.floor(Math.random() * this.moves.length)];
     }
 
     async getUserMove(gameOption) {
